@@ -1,6 +1,6 @@
 const express = require('express');
+const morgan = require("morgan");
 const cors = require("cors");
-
 class Server {
   constructor() {
     this.app = express();
@@ -20,6 +20,11 @@ class Server {
 
     // Lectura y parseo del body
     this.app.use( express.json() );
+
+    if(process.argv[2] === "--dev") {
+        // Morgan
+      this.app.use(morgan("dev"));
+    }
     
     // Directorio publico
     this.app.use( express.static('public') );
